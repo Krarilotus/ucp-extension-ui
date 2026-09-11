@@ -1,5 +1,5 @@
 name: ui
-version: 1.0.1
+version: 1.0.2
 author: gynt
 type: module
 dependencies:
@@ -9,3 +9,6 @@ dependencies:
   cffi: "^1.0.0"
 meta:
   version: 1.0.0
+tags:
+- interface
+- tools
