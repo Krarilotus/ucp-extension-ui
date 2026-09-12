@@ -10,11 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: UnofficialCrusaderPatch/UnofficialCrusaderPatch3
+          ref: 02a7a6bc8ab956a91fc752e8c8ed215c149855e7
+          path: framework-reference
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: python -m pip install lupa==2.6
       - run: python -m unittest discover -s tests
+        env:
+          UCP_FRAMEWORK_PROXIES: framework-reference/content/ucp/code/extensions/proxies.lua
       - run: python tools/build.py
       - uses: actions/upload-artifact@v4
         with:
