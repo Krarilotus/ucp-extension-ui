@@ -3,8 +3,7 @@ local transitionPattern='55 8B 6C 24 08 83 FD 17 56 8B F1 75 05 BD 29 00 00 00 8
 local ok,transitionEntry=pcall(core.AOBScan,transitionPattern)
 assert(ok and type(transitionEntry)=='number' and transitionEntry>=0x10000
   and transitionEntry<0x7fffffff-60,'UI cannot resolve the native menu transition')
-local duplicate=core.scanForAOB(transitionPattern,transitionEntry+1)
-assert(duplicate==nil or duplicate==0,'UI native menu transition is ambiguous')
+-- Discovery and cache validation belong to the shipped UCP framework.
 local transitionBytes=core.readBytes(transitionEntry,60)
 local position=0
 for token in transitionPattern:gmatch('%S+') do

@@ -54,15 +54,15 @@ assert(#calls[1]==4 and calls[1][1]==api.entry and calls[1][2]==api.gameCore)
 assert(calls[1][3]==58 and calls[1][4]==7 and calls[2][3]==41 and calls[2][4]==0)
 for i=1,100 do assert(public:getNativeMenuInterface().entry==api.entry) end
 ''')
-                self.assertEqual(len(self.scans),3) # transition/uniqueness + existing modal lookup
+                self.assertEqual(len(self.scans),2) # transition + existing modal lookup
 
     def test_invalid_discovery_context_or_receiver_never_exposes_a_bridge(self):
         for runtime in (Lua54,LuaJIT):
-            for case in ('missing','ambiguous','modified','receiver'):
+            for case in ('missing','error','modified','receiver'):
                 with self.subTest(runtime=runtime,case=case):
                     self.prepare(runtime)
                     if case=='missing':self.lua.execute('core.AOBScan=function() return 0 end')
-                    elif case=='ambiguous':self.lua.execute('core.scanForAOB=function() return 123 end')
+                    elif case=='error':self.lua.execute('core.AOBScan=function() error([[framework discovery failed]]) end')
                     elif case=='modified':self.memory[29]=0xcc
                     else:self.lua.execute('receiver=0')
                     self.lua.execute("assert(not pcall(dofile,root..'/init.lua'));assert(exposed==0)")

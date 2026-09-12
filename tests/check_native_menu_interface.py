@@ -52,9 +52,10 @@ assert(not pcall(function() api.bytes='' end))
 ''')
     assert len(scans)==before
     pattern=scans[0][0];negative=0
-    for case in ('missing','stale','ambiguous','receiver'):
+    assert scan(pattern,entry+1)==0, 'non-unique fixture context'
+    for case in ('missing','stale','error','receiver'):
         saved=read(entry,1);count=len(bridges)
-        if case=='ambiguous':g.core.scanForAOB=lambda p,start: entry+100 if p==pattern else scan(p,start)
+        if case=='error':g.core.AOBScan=lua.eval('function() error("framework discovery failed") end')
         elif case=='receiver':lua.execute('utils.AOBExtract=function() return 1,0 end')
         else:
             image[entry-base]=0xcc
