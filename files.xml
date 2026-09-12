@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <files>
+    <file src="definition.yml" target="." />
+    <file src="init.lua" target="." />
+    <file src="LICENSE" target="." />
+    <file src="README.md" target="." />
+    <file src="CHANGELOG.md" target="." />
+    <file src="manager" target="." />
+    <file src="patches" target="." />
+    <file src="ui" target="." />
+    <file src="locale" target="." />
+  </files>
+</module>
